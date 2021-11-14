@@ -6,3 +6,6 @@ Use two spaces at end of line, to end a single-line paragraph.
 
 End a single-line paragraph by placing a blank line after it.
 
+End a multi-line paragraph
+by placing a blank line after it.
+
