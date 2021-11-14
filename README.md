@@ -15,5 +15,8 @@ sed -f md2html.sed test.md
 
 ## Test `md2html.sed`
 ```bash
-diff <(sed -f md2html.sed test.md) test.html
+diff -B <(sed -f md2html.sed test.md) test.html
 ```
+
+## Which Markdown features are supported?
+`md2html.sed` supports a small subset of Markdown features. See `test.md` for the current list.

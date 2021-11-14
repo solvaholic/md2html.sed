@@ -1,11 +1,11 @@
-# This is H1
-## This is H2
-### This is H3
+# Heading 1
+## Heading 2
+### Heading 3
 
-Use two spaces at end of line, to end a single-line paragraph.  
+Single-line paragraph terminated by two spaces at end of line.  
 
-End a single-line paragraph by placing a blank line after it.
+Single-line paragraph terminated by blank line following.
 
-End a multi-line paragraph
-by placing a blank line after it.
+Multi-line paragraph terminated by
+blank line following.
 
