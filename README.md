@@ -1,5 +1,7 @@
 # md2html.sed
-Learn sed(1) by rendering Markdown to HTML
+Learn [sed(1)](https://en.wikipedia.org/wiki/Sed) by rendering [Markdown](https://en.wikipedia.org/wiki/Markdown) to [HTML](https://en.wikipedia.org/wiki/HTML)
+
+(And also by reading [the O'Reilly _sed & awk_ book](https://www.oreilly.com/library/view/sed-awk/1565922255/))
 
 ## Use md2html.sed
 ```bash
@@ -19,4 +21,8 @@ diff -B <(sed -f md2html.sed test.md) test.html
 ```
 
 ## Which Markdown features are supported?
-`md2html.sed` supports a small subset of Markdown features. See `test.md` for the current list.
+`md2html.sed` supports a small subset of Markdown features. See
+`test.md` for the current list.
+
+## `md2html.sed` should support ____
+`md2html.sed` is a learning exercise, not a comprehensive Markdown rendering tool. `md2html.sed` will be feature-complete when it can render its own README as HTML.
