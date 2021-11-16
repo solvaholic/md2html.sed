@@ -24,10 +24,9 @@
   bclear
 }
 
-# Render /^.*  $/ as <p>
+# Render /  $/ as <br />
 /  $/ {
-  s/^\(.*\)  $/<p>\1<\/p>/
-  bclear
+  s/  $/<br \/>/
 }
 
 # If pattern space does not begin with <, render it as <p>

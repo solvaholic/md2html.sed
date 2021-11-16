@@ -2,9 +2,9 @@
 ## Heading 2
 ### Heading 3
 
-Single-line paragraph terminated by two spaces at end of line.  
+Multi-line paragraph terminated by
+blank line following.
 
 Single-line paragraph terminated by blank line following.
 
-Multi-line paragraph terminated by
-blank line following.
+Add a line break by putting two spaces at end of line.  
