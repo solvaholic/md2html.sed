@@ -8,4 +8,3 @@ Single-line paragraph terminated by blank line following.
 
 Multi-line paragraph terminated by
 blank line following.
-
