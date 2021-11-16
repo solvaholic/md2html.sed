@@ -9,7 +9,7 @@
   bclose
 }
 
-# Render /^#{1,3} / as <h1>-<h3>
+# HEADINGS
 /^#/ {
   s/^# \(.*\)$/<h1>\1<\/h1>/
   s/^## \(.*\)$/<h2>\1<\/h2>/
@@ -17,7 +17,7 @@
   bclear
 }
 
-# Render /  $/ as <br />
+# TRAILING LINE BREAKS
 /  $/ {
   s/  $/<br \/>/
 }
@@ -32,6 +32,16 @@
   s/^[0-9][0-9]*\. \(.*\)$/<li>\1<\/li>/
 }
 
+# UNORDERED LISTS
+/^[-*] / {
+  # If hold space is empty, prepend <ul>
+  x
+  s/^$/<ul>/
+  x
+  # Render /^[-*] / as <li>
+  s/^[-*] \(.*\)$/<li>\1<\/li>/
+}
+
 # If pattern space is not blank, append to hold space and swap
 /^$/! {
   H
@@ -40,7 +50,7 @@
 }
 
 #
-# Default to <p>
+# Default to PARAGRAPH
 #
 # If pattern space does not begin with <, render as <p>
 /^</! {
