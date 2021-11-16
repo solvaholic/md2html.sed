@@ -9,13 +9,6 @@
   bclose
 }
 
-# If pattern space is not blank, append to hold space and swap
-/^$/! {
-  H
-  x
-  s/^\n//
-}
-
 # Render /^#{1,3} / as <h1>-<h3>
 /^#/ {
   s/^# \(.*\)$/<h1>\1<\/h1>/
@@ -29,7 +22,27 @@
   s/  $/<br \/>/
 }
 
-# If pattern space does not begin with <, render it as <p>
+# ORDERED LISTS
+/^[0-9][0-9]*\. / {
+  # If hold space is empty, prepend <ol>
+  x
+  s/^$/<ol>/
+  x
+  # Render /^[0-9][0-9]*\. / as <li>
+  s/^[0-9][0-9]*\. \(.*\)$/<li>\1<\/li>/
+}
+
+# If pattern space is not blank, append to hold space and swap
+/^$/! {
+  H
+  x
+  s/^\n//
+}
+
+#
+# Default to <p>
+#
+# If pattern space does not begin with <, render as <p>
 /^</! {
   s/^\([^<].*\)/<p>\1/
 }

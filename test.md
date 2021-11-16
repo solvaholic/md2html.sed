@@ -8,3 +8,6 @@ blank line following.
 Single-line paragraph terminated by blank line following.
 
 Add a line break by putting two spaces at end of line.  
+
+1. Begin a line with a number followed by a period and a space
+1. To create an ordered list
