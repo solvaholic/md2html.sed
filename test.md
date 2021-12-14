@@ -19,3 +19,5 @@ Add a line break by putting two spaces at end of line.
 Delimit code blocks by placing ``` at the beginning of a line.
 Note: md2html will ignore anything after the ```.
 ```
+
+Inline text formatting: `code`, _italics_, *bold*.
