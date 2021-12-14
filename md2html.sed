@@ -42,6 +42,22 @@
   s/^[-*] \(.*\)$/<li>\1<\/li>/
 }
 
+# INLINE CODE
+
+# CODE BLOCKS
+/^```/ {
+  # Swap pattern and hold spaces
+  x
+  # If pattern space is not empty, close the tag
+  /^$/!bclose
+  # If pattern space is empty, prepend <pre>
+  s/^$/<pre>/
+  # Swap pattern and hold spaces
+  x
+  # Delete pattern space and continue
+  d
+}
+
 # If pattern space is not blank, append to hold space and swap
 /^$/! {
   H

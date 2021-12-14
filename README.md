@@ -25,4 +25,4 @@ diff -B <(sed -f md2html.sed test.md) test.html
 `test.md` for the current list.
 
 ## `md2html.sed` should support ____
-`md2html.sed` is a learning exercise, not a comprehensive Markdown rendering tool. `md2html.sed` will be feature-complete when it can render its own README as HTML.
+`md2html.sed` is a learning exercise, not a comprehensive Markdown rendering tool. `md2html.sed` will be complete when it can render its own README as HTML.

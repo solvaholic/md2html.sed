@@ -14,3 +14,8 @@ Add a line break by putting two spaces at end of line.
 
 - Begin a line with a - or * followed by a space
 * To create an unordered list
+
+```text
+Delimit code blocks by placing ``` at the beginning of a line.
+Note: md2html will ignore anything after the ```.
+```
