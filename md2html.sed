@@ -1,8 +1,6 @@
 # Learn sed(1) by rendering Markdown to HTML
 
-# If pattern space is blank, swap it with hold space
-# If pattern space begins with \n, remove that \n
-# Then close the tag pattern space begins with
+# BLANK LINE
 /^$/ {
   x
   s/^\n//
@@ -17,7 +15,7 @@
   bclear
 }
 
-# TRAILING LINE BREAKS
+# TRAILING SPACES LINE BREAKS
 /  $/ {
   s/  $/<br \/>/
 }
@@ -67,6 +65,7 @@
   d
 }
 
+# NOT BLANK
 # If pattern space is not blank, append to hold space and swap
 /^$/! {
   H
@@ -74,14 +73,13 @@
   s/^\n//
 }
 
-#
-# Default to PARAGRAPH
-#
+# NOT A TAG
 # If pattern space does not begin with <, render as <p>
 /^</! {
   s/^\([^<].*\)/<p>\1/
 }
 
+# NOT LAST LINE
 # If not last line, swap pattern to hold space and end
 $! {
   x
