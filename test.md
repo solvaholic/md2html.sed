@@ -21,3 +21,5 @@ Note: md2html will ignore anything after the ```.
 ```
 
 Inline text formatting: `code`, _italics_, *bold*.
+
+Text with [a link](../test.md) in it.
