@@ -41,7 +41,7 @@
 }
 
 # INLINE TEXT FORMATTING
-# Change /^```/ pairs to <code>
+# Change ` pairs to <code>
 /[^`]`[^`][^`]*`[^`]/ {
   s/\([^`]\)`\([^`][^`]*\)`\([^`]\)/\1<code>\2<\/code>\3/
 }

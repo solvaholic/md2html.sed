@@ -1,4 +1,5 @@
 # Heading 1
+# Heading 1 with `code`
 ## Heading 2
 ### Heading 3
 
