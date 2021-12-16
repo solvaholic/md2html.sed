@@ -7,12 +7,52 @@
   bclose
 }
 
+# CODE BLOCKS
+/^```/ {
+  # Swap pattern and hold spaces
+  x
+  # If pattern space is not empty, close the tag
+  /^$/!bclose
+  # If pattern space is empty, prepend <pre>
+  s/^$/<pre>/
+  # Swap pattern and hold spaces
+  x
+  # Delete pattern space and continue
+  d
+}
+
+# If hold space begins with <pre> then jump to :save
+x
+/^<pre>/ {
+  x
+  bsave
+}
+x
+
+# INLINE TEXT FORMATTING
+# Change ` pairs to <code>
+/[^`]`[^`][^`]*`[^`]/ {
+  s/\([^`]\)`\([^`][^`]*\)`\([^`]\)/\1<code>\2<\/code>\3/
+}
+# Change _ pairs to <i>
+/[^_]_[^_][^_]*_[^_]/ {
+  s/\([^_]\)_\([^_][^_]*\)_\([^_]\)/\1<i>\2<\/i>\3/
+}
+# Change * pairs to <b>
+/[^*]\*[^*][^*]*\*[^*]/ {
+  s/\([^\*]\)\*\([^\*][^\*]*\)\*\([^\*]\)/\1<b>\2<\/b>\3/
+}
+
+# LINKS
+/\[[^]][^]]*\]([^)][^)]*)/ {
+  s/\[\([^]][^]]*\)\](\([^)][^)]*\))/<a href="\2">\1<\/a>/g
+}
+
 # HEADINGS
 /^#/ {
   s/^# \(.*\)$/<h1>\1<\/h1>/
   s/^## \(.*\)$/<h2>\1<\/h2>/
   s/^### \(.*\)$/<h3>\1<\/h3>/
-  bclear
 }
 
 # TRAILING SPACES LINE BREAKS
@@ -40,38 +80,7 @@
   s/^[-*] \(.*\)$/<li>\1<\/li>/
 }
 
-# INLINE TEXT FORMATTING
-# Change ` pairs to <code>
-/[^`]`[^`][^`]*`[^`]/ {
-  s/\([^`]\)`\([^`][^`]*\)`\([^`]\)/\1<code>\2<\/code>\3/
-}
-# Change _ pairs to <i>
-/[^_]_[^_][^_]*_[^_]/ {
-  s/\([^_]\)_\([^_][^_]*\)_\([^_]\)/\1<i>\2<\/i>\3/
-}
-# Change * pairs to <b>
-/[^*]\*[^*][^*]*\*[^*]/ {
-  s/\([^\*]\)\*\([^\*][^\*]*\)\*\([^\*]\)/\1<b>\2<\/b>\3/
-}
-
-# LINKS
-/\[[^]][^]]*\]([^)][^)]*)/ {
-  s/\[\([^]][^]]*\)\](\([^)][^)]*\))/<a href="\2">\1<\/a>/g
-}
-
-# CODE BLOCKS
-/^```/ {
-  # Swap pattern and hold spaces
-  x
-  # If pattern space is not empty, close the tag
-  /^$/!bclose
-  # If pattern space is empty, prepend <pre>
-  s/^$/<pre>/
-  # Swap pattern and hold spaces
-  x
-  # Delete pattern space and continue
-  d
-}
+:save
 
 # NOT BLANK
 # If pattern space is not blank, append to hold space and swap
@@ -79,12 +88,6 @@
   H
   x
   s/^\n//
-}
-
-# NOT A TAG
-# If pattern space does not begin with <, render as <p>
-/^</! {
-  s/^\([^<].*\)/<p>\1/
 }
 
 # NOT LAST LINE
@@ -95,10 +98,22 @@ $! {
 }
 
 :close
-# Close the tag pattern space begins with
-s/^<\([^>]*\)>.*$/&<\/\1>\n/
 
-:clear
+# EMPTY
+# If pattern space is empty, delete and continue
+/^$/d
+
+# NOT A TAG
+# If pattern space does not begin with <, render as <p>
+/^</! {
+  s/^\([^<].*\)/<p>\1<\/p>/
+}
+
+# Close the tag pattern space begins with
+s/^<ol>.*$/&<\/ol>\n/
+s/^<ul>.*$/&<\/ul>\n/
+s/^<pre>.*$/&<\/pre>\n/
+
 # Clear hold space
 x
 s/.*//g
