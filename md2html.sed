@@ -29,20 +29,6 @@ x
 }
 x
 
-# INLINE TEXT FORMATTING
-# Change ` pairs to <code>
-/[^`]`[^`][^`]*`[^`]/ {
-  s/\([^`]\)`\([^`][^`]*\)`\([^`]\)/\1<code>\2<\/code>\3/
-}
-# Change _ pairs to <i>
-/[^_]_[^_][^_]*_[^_]/ {
-  s/\([^_]\)_\([^_][^_]*\)_\([^_]\)/\1<i>\2<\/i>\3/
-}
-# Change * pairs to <b>
-/[^*]\*[^*][^*]*\*[^*]/ {
-  s/\([^\*]\)\*\([^\*][^\*]*\)\*\([^\*]\)/\1<b>\2<\/b>\3/
-}
-
 # LINKS
 /\[[^]][^]]*\]([^)][^)]*)/ {
   s/\[\([^]][^]]*\)\](\([^)][^)]*\))/<a href="\2">\1<\/a>/g
@@ -62,9 +48,9 @@ x
 
 # ORDERED LISTS
 /^[0-9][0-9]*\. / {
-  # If hold space is empty, prepend <ol>
+  # If hold space does not contain <ol>, add a <ol>
   x
-  s/^$/<ol>/
+  /<ol>/!s/$/\n<ol>/
   x
   # Render /^[0-9][0-9]*\. / as <li>
   s/^[0-9][0-9]*\. \(.*\)$/<li>\1<\/li>/
@@ -72,9 +58,9 @@ x
 
 # UNORDERED LISTS
 /^[-*] / {
-  # If hold space is empty, prepend <ul>
+  # If hold space does not contain <ul>, add a <ul>
   x
-  s/^$/<ul>/
+  /<ul>/!s/^$/<ul>/
   x
   # Render /^[-*] / as <li>
   s/^[-*] \(.*\)$/<li>\1<\/li>/
@@ -109,10 +95,24 @@ $! {
   s/^\([^<].*\)/<p>\1<\/p>/
 }
 
-# Close the tag pattern space begins with
-s/^<ol>.*$/&<\/ol>\n/
-s/^<ul>.*$/&<\/ul>\n/
-s/^<pre>.*$/&<\/pre>\n/
+# Close open tags: ul, ol, pre
+s/<ol>.*$/&<\/ol>\n/
+s/<ul>.*$/&<\/ul>\n/
+s/<pre>.*$/&<\/pre>\n/
+
+# INLINE TEXT FORMATTING
+# Change ` pairs to <code>
+/[^`]`[^`][^`]*`[^`]/ {
+  s/\([^`]\)`\([^`][^`]*\)`\([^`]\)/\1<code>\2<\/code>\3/g
+}
+# Change _ pairs to <i>
+/[^_]_[^_][^_]*_[^_]/ {
+  s/\([^_]\)_\([^_][^_]*\)_\([^_]\)/\1<i>\2<\/i>\3/g
+}
+# Change * pairs to <b>
+/[^*]\*[^*][^*]*\*[^*]/ {
+  s/\([^\*]\)\*\([^\*][^\*]*\)\*\([^\*]\)/\1<b>\2<\/b>\3/g
+}
 
 # Clear hold space
 x
