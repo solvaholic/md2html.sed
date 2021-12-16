@@ -1,6 +1,7 @@
 # Learn sed(1) by rendering Markdown to HTML
 
-# BLANK LINE
+# BLANK LINES
+# If pattern is blank then swap hold to pattern and jump to :close
 /^$/ {
   x
   s/^\n//
@@ -8,12 +9,13 @@
 }
 
 # CODE BLOCKS
+# If pattern begins with ``` then start or end a <pre>
 /^```/ {
   # Swap pattern and hold spaces
   x
   # If pattern space is not empty, close the tag
   /^$/!bclose
-  # If pattern space is empty, prepend <pre>
+  # If pattern space is empty, add <pre>
   s/^$/<pre>/
   # Swap pattern and hold spaces
   x
@@ -36,9 +38,9 @@ x
 
 # HEADINGS
 /^#/ {
-  s/^# \(.*\)$/<h1>\1<\/h1>/
-  s/^## \(.*\)$/<h2>\1<\/h2>/
-  s/^### \(.*\)$/<h3>\1<\/h3>/
+  s/^# \(.*\)$/<h1>\1<\/h1>\n/
+  s/^## \(.*\)$/<h2>\1<\/h2>\n/
+  s/^### \(.*\)$/<h3>\1<\/h3>\n/
 }
 
 # TRAILING SPACES LINE BREAKS
@@ -85,22 +87,19 @@ $! {
 
 :close
 
-# EMPTY
 # If pattern space is empty, delete and continue
 /^$/d
 
-# NOT A TAG
 # If pattern space does not begin with <, render as <p>
 /^</! {
-  s/^\([^<].*\)/<p>\1<\/p>/
+  s/^\(..*\)/<p>\1<\/p>\n/
 }
 
 # Close open tags: ul, ol, pre
-s/<ol>.*$/&<\/ol>\n/
-s/<ul>.*$/&<\/ul>\n/
-s/<pre>.*$/&<\/pre>\n/
+s/<ol>.*$/&\n<\/ol>\n/
+s/<ul>.*$/&\n<\/ul>\n/
+s/<pre>.*$/&\n<\/pre>\n/
 
-# INLINE TEXT FORMATTING
 # Change ` pairs to <code>
 /[^`]`[^`][^`]*`[^`]/ {
   s/\([^`]\)`\([^`][^`]*\)`\([^`]\)/\1<code>\2<\/code>\3/g
